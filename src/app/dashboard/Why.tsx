@@ -13,6 +13,8 @@ import {
   Quote
 } from "lucide-react";
 import { getSiteContent, SiteContent } from "@/app/action/home";
+import berkasImg from "../aset/berkas.jpg";
+import workshopImg from "../aset/workshop.jpeg";
 
 const Why = () => {
   const [contents, setContents] = useState<SiteContent[]>([]);
@@ -85,15 +87,19 @@ const Why = () => {
               {/* Image/Icon Box */}
               <div className="flex-1 w-full">
                 <div className="aspect-[16/10] bg-gray-50 rounded-4xl border border-gray-100 flex items-center justify-center shadow-inner relative group overflow-hidden">
-                  {point.image ? (
-                    <img src={point.image} alt={point.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  {point.image || point.title.toLowerCase().includes("administrasi") || point.title.toLowerCase().includes("program") ? (
+                    <img
+                      src={point.image || (point.title.toLowerCase().includes("administrasi") ? berkasImg.src : workshopImg.src)}
+                      alt={point.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
                   ) : (
                     <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center z-10 group-hover:scale-110 transition-transform duration-500">
                       {getIconByName(point.icon || "Box")}
                     </div>
                   )}
                   {/* Decorative faint pattern */}
-                  {!point.image && (
+                  {!point.image && !point.title.toLowerCase().includes("administrasi") && !point.title.toLowerCase().includes("program") && (
                     <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
                       <div className="grid grid-cols-10 gap-4 p-4">
                         {Array.from({ length: 100 }).map((_, idx) => (
@@ -108,7 +114,7 @@ const Why = () => {
               {/* Text Content */}
               <div className="flex-1 space-y-8">
                 <div className="flex items-center gap-4">
-                  <div className="text-4xl font-black text-gray-100 italic tracking-tighter shrink-0">{point.id || `0${i + 1}`}</div>
+                  <div className="text-4xl font-black text-black italic tracking-tighter shrink-0">{point.id || `0${i + 1}`}</div>
                   <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
                     {getIconByName(point.icon || "Box", 18)}
                   </div>
