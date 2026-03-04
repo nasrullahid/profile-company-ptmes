@@ -178,8 +178,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel SiteContent {\n  id            Int      @id @default(autoincrement())\n  section       String\n  content_key   String\n  content_value String\n  updated_at    DateTime @default(now()) @updatedAt\n\n  @@unique([section, content_key])\n  @@map(\"site_contents\")\n}\n\nmodel User {\n  id       Int     @id @default(autoincrement())\n  name     String?\n  email    String  @unique\n  password String\n  role     String  @default(\"user\")\n\n  @@map(\"users\")\n}\n",
-  "inlineSchemaHash": "681a764feaea64869e61608d0b5403c74fdde1e7d88632a6dc5d42d5feb7928f",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel SiteContent {\n  id            Int      @id @default(autoincrement())\n  section       String\n  content_key   String\n  content_value String\n  updated_at    DateTime @default(now()) @updatedAt\n\n  @@unique([section, content_key])\n  @@map(\"site_contents\")\n}\n\nmodel User {\n  id       Int     @id @default(autoincrement())\n  name     String?\n  email    String  @unique\n  password String\n  role     String  @default(\"user\")\n\n  @@map(\"users\")\n}\n",
+  "inlineSchemaHash": "e0f0117b01797dc823713e069c057c46cd7228eca3356574377d6237c468226c",
   "copyEngine": true
 }
 
