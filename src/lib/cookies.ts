@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
-import fs from "fs/promises";
 
 const COOKIE_NAME = "auth_token";
 export async function setAuthCookie(token: any) {
