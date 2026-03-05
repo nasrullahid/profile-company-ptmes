@@ -152,6 +152,22 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-1.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -178,8 +194,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel SiteContent {\n  id            Int      @id @default(autoincrement())\n  section       String\n  content_key   String\n  content_value String\n  updated_at    DateTime @default(now()) @updatedAt\n\n  @@unique([section, content_key])\n  @@map(\"site_contents\")\n}\n\nmodel User {\n  id       Int     @id @default(autoincrement())\n  name     String?\n  email    String  @unique\n  password String\n  role     String  @default(\"user\")\n\n  @@map(\"users\")\n}\n",
-  "inlineSchemaHash": "e0f0117b01797dc823713e069c057c46cd7228eca3356574377d6237c468226c",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/client\"\n  binaryTargets = [\"native\", \"rhel-openssl-1.0.x\", \"rhel-openssl-3.0.x\", \"linux-musl\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel SiteContent {\n  id            Int      @id @default(autoincrement())\n  section       String\n  content_key   String\n  content_value String\n  updated_at    DateTime @default(now()) @updatedAt\n\n  @@unique([section, content_key])\n  @@map(\"site_contents\")\n}\n\nmodel User {\n  id       Int     @id @default(autoincrement())\n  name     String?\n  email    String  @unique\n  password String\n  role     String  @default(\"user\")\n\n  @@map(\"users\")\n}\n",
+  "inlineSchemaHash": "92b873dcca9852604ebb6ca8e107d69caa577213e6d3ac58f02bdfe199cb0613",
   "copyEngine": true
 }
 
@@ -220,6 +236,22 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "src/generated/client/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-1.0.x.so.node");
+path.join(process.cwd(), "src/generated/client/libquery_engine-rhel-openssl-1.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/generated/client/libquery_engine-rhel-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl.so.node");
+path.join(process.cwd(), "src/generated/client/libquery_engine-linux-musl.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/generated/client/libquery_engine-linux-musl-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/client/schema.prisma")
