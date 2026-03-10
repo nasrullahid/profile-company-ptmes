@@ -3,12 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ChevronRight,
-  Settings2,
-  ExternalLink,
-  QrCode
-} from "lucide-react";
+import { ChevronRight, Settings2, ExternalLink, QrCode } from "lucide-react";
 import EduvanteLogo from "../aset/Eduvante.png";
 import NawasenaLogo from "../aset/nawasena.png";
 import PersonalityLogo from "../aset/personality.jpeg";
@@ -47,8 +42,15 @@ const Solutions = () => {
     fetchContent();
   }, []);
 
-  const getContentValue = (section: string, key: string, defaultValue: string) => {
-    return contents.find(c => c.section === section && c.content_key === key)?.content_value || defaultValue;
+  const getContentValue = (
+    section: string,
+    key: string,
+    defaultValue: string,
+  ) => {
+    return (
+      contents.find((c) => c.section === section && c.content_key === key)
+        ?.content_value || defaultValue
+    );
   };
 
   const getBrands = () => {
@@ -65,12 +67,12 @@ const Solutions = () => {
   // Debug: Log brands to console to check QR code values
   useEffect(() => {
     if (brands.length > 0) {
-      console.log('Brands data:', brands);
+      console.log("Brands data:", brands);
       brands.forEach((brand: any, i: number) => {
         console.log(`Brand ${i + 1} (${brand.title}):`, {
           qr_code: brand.qr_code,
           logo: brand.logo,
-          title: brand.title
+          title: brand.title,
         });
       });
     }
@@ -79,13 +81,17 @@ const Solutions = () => {
   return (
     <div className="w-full font-sans bg-white text-black">
       {/* Header */}
-      <section className="bg-black py-24 text-center">
+      <section className="bg-black py-16 lg:py-24 text-center">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter uppercase text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 lg:mb-6 tracking-tighter uppercase text-white">
             {getContentValue("solutions", "title", "Ekosistem Solusi PT MES")}
           </h1>
-          <p className="text-gray-400 text-xs font-semibold uppercase tracking-[0.3em] max-w-2xl mx-auto leading-relaxed">
-            {getContentValue("solutions", "description", "Portofolio brand unggulan yang melayani berbagai klaster kebutuhan strategis pendidikan di Indonesia.")}
+          <p className="text-gray-400 text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] md:tracking-[0.3em] max-w-2xl mx-auto leading-relaxed">
+            {getContentValue(
+              "solutions",
+              "description",
+              "Portofolio brand unggulan yang melayani berbagai klaster kebutuhan strategis pendidikan di Indonesia.",
+            )}
           </p>
         </div>
       </section>
@@ -98,10 +104,13 @@ const Solutions = () => {
               const accentColor = brand.color || "blue";
               const colorMap: Record<string, string> = {
                 blue: "border-blue-100 group-hover:border-blue-500/20 bg-blue-50/5",
-                purple: "border-purple-100 group-hover:border-purple-500/20 bg-purple-50/5",
-                green: "border-green-100 group-hover:border-green-500/20 bg-green-50/5",
+                purple:
+                  "border-purple-100 group-hover:border-purple-500/20 bg-purple-50/5",
+                green:
+                  "border-green-100 group-hover:border-green-500/20 bg-green-50/5",
                 teal: "border-teal-100 group-hover:border-teal-500/20 bg-teal-50/5",
-                orange: "border-orange-100 group-hover:border-orange-500/20 bg-orange-50/5",
+                orange:
+                  "border-orange-100 group-hover:border-orange-500/20 bg-orange-50/5",
                 pink: "border-pink-100 group-hover:border-pink-500/20 bg-pink-50/5",
               };
 
@@ -117,13 +126,22 @@ const Solutions = () => {
               return (
                 <div
                   key={i}
-                  className={`p-10 rounded-4xl border shadow-sm hover:shadow-2xl transition-all flex flex-col group relative overflow-hidden h-full ${colorMap[accentColor] || "border-gray-100 bg-white"}`}
+                  className={`p-6 md:p-8 lg:p-10 rounded-3xl md:rounded-[2.5rem] border shadow-sm hover:shadow-2xl transition-all flex flex-col group relative overflow-hidden h-full ${colorMap[accentColor] || "border-gray-100 bg-white"}`}
                 >
                   <div className="flex justify-between items-start mb-10">
-                    <div className="w-24 h-24 rounded-3xl bg-white border border-gray-100 flex items-center justify-center overflow-hidden p-4 group-hover:scale-105 transition-transform duration-500 shadow-sm">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl md:rounded-3xl bg-white border border-gray-100 flex items-center justify-center overflow-hidden p-3 md:p-4 group-hover:scale-105 transition-transform duration-500 shadow-sm">
                       {logoMap[brand.logo] ? (
-                        <Image src={logoMap[brand.logo]} alt={brand.title} className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
-                      ) : <Settings2 size={40} className="text-black" />}
+                        <Image
+                          src={logoMap[brand.logo]}
+                          alt={brand.title}
+                          className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
+                        />
+                      ) : (
+                        <Settings2
+                          size={32}
+                          className="text-black md:w-10 md:h-10"
+                        />
+                      )}
                     </div>
 
                     {/* QR Popover style link */}
@@ -141,38 +159,54 @@ const Solutions = () => {
                               className="w-full h-full object-contain"
                               onError={(e) => {
                                 // Fallback silently or with warn
-                                console.warn(`Failed to load QR code for ${brand.title}: ${brand.qr_code}`);
+                                console.warn(
+                                  `Failed to load QR code for ${brand.title}: ${brand.qr_code}`,
+                                );
                                 e.currentTarget.src = "/qr-mentorbox.png";
                               }}
                             />
-                            <p className="text-[8px] text-gray-400 mt-1 text-center break-all">{brand.qr_code}</p>
+                            <p className="text-[8px] text-gray-400 mt-1 text-center break-all">
+                              {brand.qr_code}
+                            </p>
                           </>
                         ) : (
                           <div className="flex flex-col items-center gap-2">
-                            <img src="/qr-mentorbox.png" alt="Default QR" className="w-full h-full object-contain" />
-                            <p className="text-[8px] text-red-400 text-center">No QR uploaded</p>
+                            <img
+                              src="/qr-mentorbox.png"
+                              alt="Default QR"
+                              className="w-full h-full object-contain"
+                            />
+                            <p className="text-[8px] text-red-400 text-center">
+                              No QR uploaded
+                            </p>
                           </div>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-black mb-3 tracking-tight text-black">
+                  <div className="mb-6 md:mb-8">
+                    <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-3 tracking-tight text-black">
                       {brand.title}
                     </h3>
-                    <p className="text-gray-400 font-normal text-sm leading-relaxed italic">
+                    <p className="text-gray-400 font-normal text-xs md:text-sm leading-relaxed italic">
                       {brand.desc}
                     </p>
                   </div>
 
-                  <div className="space-y-4 mb-10">
-                    <div className="p-4 bg-white rounded-2xl border border-gray-100">
-                      <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-2">Klaster Layanan</p>
-                      <p className="text-xs font-medium text-black leading-tight">{brand.categories}</p>
+                  <div className="space-y-4 mb-8 md:mb-10">
+                    <div className="p-3 md:p-4 bg-white rounded-xl md:rounded-2xl border border-gray-100">
+                      <p className="text-[9px] md:text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5 md:mb-2">
+                        Klaster Layanan
+                      </p>
+                      <p className="text-xs font-medium text-black leading-tight">
+                        {brand.categories}
+                      </p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 text-white rounded-lg shadow-sm ${badgeMap[accentColor] || "bg-black"}`}>
+                      <span
+                        className={`text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2.5 md:px-3 py-1 text-white rounded-lg shadow-sm ${badgeMap[accentColor] || "bg-black"}`}
+                      >
                         {brand.target}
                       </span>
                     </div>
@@ -180,16 +214,26 @@ const Solutions = () => {
 
                   {brand.link ? (
                     <a
-                      href={brand.link.startsWith("http") ? brand.link : `https://${brand.link}`}
-                      className="mt-auto w-full flex items-center justify-between py-4 px-6 bg-white border border-gray-200 rounded-2xl font-bold text-[10px] uppercase tracking-[0.2em] group/btn hover:bg-black hover:text-white hover:border-black transition-all"
+                      href={
+                        brand.link.startsWith("http")
+                          ? brand.link
+                          : `https://${brand.link}`
+                      }
+                      className="mt-auto w-full flex items-center justify-between py-3 md:py-4 px-5 md:px-6 bg-white border border-gray-200 rounded-xl md:rounded-2xl font-bold text-[9px] md:text-[10px] uppercase tracking-[0.2em] group/btn hover:bg-black hover:text-white hover:border-black transition-all"
                     >
                       Lihat Detail
-                      <ArrowUpRight size={16} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight
+                        size={14}
+                        className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform md:w-4 md:h-4"
+                      />
                     </a>
                   ) : (
-                    <button className="mt-auto w-full flex items-center justify-between py-4 px-6 bg-white border border-gray-200 rounded-2xl font-bold text-[10px] uppercase tracking-[0.2em] group/btn hover:bg-black hover:text-white hover:border-black transition-all">
+                    <button className="mt-auto w-full flex items-center justify-between py-3 md:py-4 px-5 md:px-6 bg-white border border-gray-200 rounded-xl md:rounded-2xl font-bold text-[9px] md:text-[10px] uppercase tracking-[0.2em] group/btn hover:bg-black hover:text-white hover:border-black transition-all">
                       Lihat Detail
-                      <ArrowUpRight size={16} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight
+                        size={14}
+                        className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform md:w-4 md:h-4"
+                      />
                     </button>
                   )}
                 </div>
@@ -200,16 +244,28 @@ const Solutions = () => {
       </section>
 
       {/* Cluster Summary (Bottom) */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-6 text-center">
-          <div className="max-w-4xl mx-auto p-16 rounded-4xl bg-gray-50 border border-gray-100">
-            <h2 className="text-2xl font-black text-black mb-8 uppercase tracking-tight">Kebutuhan Anda, Solusi Kami.</h2>
-            <p className="text-gray-500 font-normal text-base leading-relaxed italic mb-10">
-              "Setiap unit bisnis di bawah PT Media Eduka Sentosa dirancang untuk saling melengkapi, menciptakan ekosistem pendidikan yang holistik dari hulu ke hilir."
+          <div className="max-w-4xl mx-auto p-8 md:p-16 rounded-3xl md:rounded-[2.5rem] bg-gray-50 border border-gray-100">
+            <h2 className="text-xl md:text-2xl font-black text-black mb-6 md:mb-8 uppercase tracking-tight">
+              Kebutuhan Anda, Solusi Kami.
+            </h2>
+            <p className="text-gray-500 font-normal text-sm md:text-base leading-relaxed italic mb-8 md:mb-10">
+              "Setiap unit bisnis di bawah PT Media Eduka Sentosa dirancang
+              untuk saling melengkapi, menciptakan ekosistem pendidikan yang
+              holistik dari hulu ke hilir."
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              {["Media & Publikasi", "Software & IT", "Analisis Data", "Logistik Pendidikan"].map((tag, i) => (
-                <span key={i} className="px-6 py-2 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-400 uppercase tracking-widest">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+              {[
+                "Media & Publikasi",
+                "Software & IT",
+                "Analisis Data",
+                "Logistik Pendidikan",
+              ].map((tag, i) => (
+                <span
+                  key={i}
+                  className="px-4 md:px-6 py-1.5 md:py-2 bg-white border border-gray-200 rounded-full text-[10px] md:text-xs font-semibold text-gray-400 uppercase tracking-widest"
+                >
                   {tag}
                 </span>
               ))}
@@ -222,7 +278,13 @@ const Solutions = () => {
 };
 
 // Internal icon for button
-const ArrowUpRight = ({ size, className }: { size: number, className: string }) => (
+const ArrowUpRight = ({
+  size,
+  className,
+}: {
+  size: number;
+  className: string;
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

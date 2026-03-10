@@ -1,0 +1,29 @@
+node.exe : 
+Environment 
+variables loaded 
+from .env
+At E:\npx.ps1:29 
+char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Environ   
+ ment variables l    
+oaded from .env:    
+String) [], Remo    
+teException
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+Prisma schema loaded from prisma\schema.prisma
+
+??? Generated Prisma Client (v6.19.2) to .\node_modules\@prisma\client in 43ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+

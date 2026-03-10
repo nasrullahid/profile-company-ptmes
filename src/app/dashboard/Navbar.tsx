@@ -32,8 +32,15 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const getContentValue = (section: string, key: string, defaultValue: string) => {
-    return contents.find(c => c.section === section && c.content_key === key)?.content_value || defaultValue;
+  const getContentValue = (
+    section: string,
+    key: string,
+    defaultValue: string,
+  ) => {
+    return (
+      contents.find((c) => c.section === section && c.content_key === key)
+        ?.content_value || defaultValue
+    );
   };
 
   const getWaLink = () => {
@@ -55,21 +62,22 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-100 ${isScrolled ? "py-2 shadow-sm" : "py-4"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-100 ${
+          isScrolled ? "py-2 shadow-sm" : "py-4"
+        }`}
       >
-        <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-6 lg:px-12 flex items-center justify-between">
           {/* Logo Section */}
           <div
             className="flex items-center cursor-pointer"
             onClick={() => onSectionChange("beranda")}
           >
-            <div className="h-10 px-3 py-1.5 border border-gray-200 rounded-lg flex items-center justify-center bg-white shadow-sm">
+            <div className="h-8 md:h-10 px-2 md:px-3 py-1 md:py-1.5 border border-gray-200 rounded-lg flex items-center justify-center bg-white shadow-sm">
               <Image
                 src="/Asset 2.jpg"
                 alt="PT Media Eduka Sentosa Logo"
-                width={140}
-                height={32}
+                width={120}
+                height={28}
                 className="h-full w-auto object-contain"
                 priority
               />
@@ -82,10 +90,11 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
               <button
                 key={item.id}
                 onClick={() => onSectionChange(item.id)}
-                className={`text-sm px-4 py-2 transition-colors relative ${activeSection === item.id
-                  ? "text-gray-900 font-black"
-                  : "text-gray-600 hover:text-black font-semibold"
-                  }`}
+                className={`text-sm px-4 py-2 transition-colors relative ${
+                  activeSection === item.id
+                    ? "text-gray-900 font-black"
+                    : "text-gray-600 hover:text-black font-semibold"
+                }`}
               >
                 {item.label}
               </button>
@@ -96,7 +105,7 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="hidden sm:flex items-center gap-2 px-7 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-full font-bold text-xs hover:bg-gray-50 transition-all active:scale-95 shadow-sm"
+              className="hidden md:flex items-center gap-2 px-5 lg:px-7 py-2 md:py-2.5 bg-white border border-gray-300 text-gray-700 rounded-full font-bold text-xs hover:bg-gray-50 transition-all active:scale-95 shadow-sm"
             >
               <LogIn size={16} />
               Login
@@ -105,7 +114,7 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
               href={getWaLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 px-7 py-2.5 bg-[#434d5e] text-white rounded-full font-bold text-xs hover:bg-slate-800 transition-all active:scale-95 shadow-sm"
+              className="hidden md:flex items-center gap-2 px-5 lg:px-7 py-2 md:py-2.5 bg-[#434d5e] text-white rounded-full font-bold text-xs hover:bg-slate-800 transition-all active:scale-95 shadow-sm"
             >
               Hubungi Kami
             </a>
@@ -122,33 +131,43 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? "max-h-screen py-6 shadow-xl" : "max-h-0"
-            }`}
+          className={`lg:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 transition-all duration-300 overflow-hidden ${
+            isMobileMenuOpen ? "max-h-screen py-6 shadow-xl" : "max-h-0"
+          }`}
         >
-          <div className="container mx-auto px-6 flex flex-col gap-4">
-            {menuItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  onSectionChange(item.id);
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`text-lg font-bold text-left py-2 ${activeSection === item.id ? "text-black border-l-4 border-black pl-4" : "text-slate-400 pl-4"
+          <div className="container mx-auto px-6 py-8 flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              {menuItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    onSectionChange(item.id);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`text-base font-bold text-left py-3 px-4 rounded-xl transition-all ${
+                    activeSection === item.id
+                      ? "bg-black text-white"
+                      : "text-slate-600 hover:bg-gray-50"
                   }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 gap-3 pt-6 border-t border-gray-100">
+              <Link
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-2 py-4 bg-gray-100 text-black rounded-xl font-bold text-sm"
               >
-                {item.label}
-              </button>
-            ))}
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-50">
-              <Link href="/login" className="flex items-center justify-center gap-2 py-3 bg-black text-white rounded-full font-bold text-xs">
-                <LogIn size={16} /> Login
+                <LogIn size={18} /> Login ke Akun
               </Link>
               <a
                 href={getWaLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-center py-3 bg-[#434d5e] text-white rounded-full font-bold text-xs"
+                className="flex items-center justify-center py-4 bg-[#434d5e] text-white rounded-xl font-bold text-sm"
               >
                 Hubungi Kami
               </a>

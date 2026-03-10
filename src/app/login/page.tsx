@@ -38,13 +38,14 @@ const LoginPage = () => {
         </div>
         <h1 className="text-3xl font-bold tracking-tight mb-1">Admin Portal</h1>
         <p className="text-white/70 font-medium">PT Media Eduka Sentosa</p>
+        <p className="text-[10px] text-white/30 mt-2 font-mono">Build: 20260305-1255</p>
       </div>
 
       {/* Login Card */}
       <div className="z-10 w-full max-w-105 bg-white rounded-4xl shadow-2xl p-8 lg:p-10">
         <h2 className="text-2xl font-bold text-[#171717] mb-6">Login</h2>
 
-        
+
 
         <form action={action} className="space-y-5">
           {/* Email Field */}
