@@ -12,7 +12,8 @@ import {
   Search,
   MapPin,
   Settings,
-  LogOut
+  LogOut,
+  BookOpen
 } from "lucide-react";
 
 const SidebarItem = ({
@@ -52,6 +53,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
     { label: "Mengapa Kami", tab: "why", icon: <HelpCircle size={18} /> },
     { label: "Cara Kerja", tab: "how", icon: <Search size={18} /> },
     { label: "Jangkauan", tab: "jangkauan", icon: <MapPin size={18} /> },
+    { label: "Katalog", tab: "katalog", icon: <BookOpen size={18} /> },
     { label: "Settings", tab: "settings", icon: <Settings size={18} /> },
   ];
 

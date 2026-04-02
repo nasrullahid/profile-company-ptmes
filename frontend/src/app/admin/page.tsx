@@ -22,9 +22,33 @@ import {
   Search,
   Lightbulb,
   Camera,
+  BookOpen,
+  Image as ImageIcon,
+  Check,
+  ExternalLink
 } from "lucide-react";
 import Image from "next/image";
 import { uploadImage } from "@/app/action/upload";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || "http://localhost:8000";
+
+const getImageUrl = (url: string) => {
+  if (!url) return "";
+  if (url.startsWith("http") || url.startsWith("data:")) return url;
+  
+  const path = url.startsWith("/") ? url : `/${url}`;
+  
+  if (typeof window !== "undefined") {
+    const apiHost = new URL(API_BASE_URL).hostname;
+    const currentHost = window.location.hostname;
+    
+    if (currentHost !== "localhost" && currentHost !== "127.0.0.1" && apiHost === "localhost") {
+       return `http://${currentHost}:8000${path}`;
+    }
+  }
+  
+  return `${API_BASE_URL}${path}`;
+};
 
 const AdminPageContent = () => {
   const [contents, setContents] = useState<SiteContent[]>([]);
@@ -118,6 +142,7 @@ const AdminPageContent = () => {
       case "why": return "Mengapa Kami";
       case "how": return "Cara Kerja";
       case "jangkauan": return "Jangkauan";
+      case "katalog": return "Katalog Buku";
       default: return tab;
     }
   }
@@ -415,6 +440,27 @@ const AdminPageContent = () => {
           </div>
         )}
 
+        {/* KATALOG BUKU */}
+        {activeTab === "katalog" && (
+          <div className="bg-white rounded-4xl p-10 border border-gray-100 shadow-sm">
+            <SectionHeader icon={<BookOpen size={24} />} title="Koleksi Katalog" desc="Daftar buku & literasi" />
+            <ListEditor
+              value={getContentValue("katalog", "books_json")}
+              onSave={(v) => handleUpdate("katalog", "books_json", v)}
+              fields={[
+                { key: "image", label: "Cover Buku (URL/Upload)", type: "image" },
+                { key: "title", label: "Judul Buku", type: "text" },
+                { key: "author", label: "Penulis", type: "text" },
+                { key: "isbn", label: "Nomor ISBN", type: "text" },
+                { key: "link", label: "Link/URL Eksternal (Contoh: https://...)", type: "text" },
+                { key: "description", label: "Deskripsi Singkat (Kartu)", type: "textarea" },
+                { key: "full_description", label: "Deskripsi Lengkap (Modal)", type: "textarea" },
+              ]}
+              saving={saving === "katalog-books_json"}
+            />
+          </div>
+        )}
+
         {/* SETTINGS */}
         {activeTab === "settings" && (
           <div className="bg-white rounded-4xl p-10 border border-gray-100 shadow-sm">
@@ -639,7 +685,7 @@ const ListEditor = ({ value, onSave, fields, saving }: ListEditorProps) => {
                     <div className="flex items-center gap-6">
                       <div className="w-20 h-20 bg-gray-50 rounded-2xl border border-dashed border-gray-200 flex items-center justify-center overflow-hidden shrink-0 group/img relative">
                         {item[field.key] ? (
-                          <img src={item[field.key]} alt="Preview" className="w-full h-full object-cover" />
+                          <img src={getImageUrl(item[field.key])} alt="Preview" className="w-full h-full object-cover" />
                         ) : (
                           <Camera size={24} className="text-gray-300" />
                         )}
@@ -690,6 +736,22 @@ const ListEditor = ({ value, onSave, fields, saving }: ListEditorProps) => {
                       placeholder={`Enter ${field.label}...`}
                       className="w-full bg-gray-50/50 border border-gray-100 rounded-2xl p-5 outline-none focus:ring-4 focus:ring-black/5 focus:bg-white text-[13px] font-bold text-gray-700 transition-all resize-none"
                     />
+                  ) : field.key === "link" ? (
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={item[field.key] || ""}
+                        onChange={(e) => handleItemChange(idx, field.key, e.target.value)}
+                        onBlur={handleSave}
+                        placeholder="https://..."
+                        className="flex-1 bg-gray-50/50 border border-gray-100 rounded-2xl p-5 outline-none focus:ring-4 focus:ring-black/5 focus:bg-white text-[13px] font-bold text-gray-700 transition-all"
+                      />
+                      {item[field.key] && (
+                        <a href={item[field.key]} target="_blank" rel="noopener noreferrer" className="p-5 bg-gray-100 rounded-2xl hover:bg-black hover:text-white transition-all">
+                          <ExternalLink size={20} />
+                        </a>
+                      )}
+                    </div>
                   ) : (
                     <input
                       type="text"

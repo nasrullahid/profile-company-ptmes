@@ -325,6 +325,70 @@ export async function initializeSiteContent() {
         { section: "footer", content_key: "address", content_value: "Jakarta, Indonesia" },
         { section: "footer", content_key: "tagline", content_value: "Bagian dari Magau Group" },
         { section: "seo", content_key: "meta_description", content_value: "PT Media Eduka Sentosa (MES) menyediakan solusi pendidikan terintegrasi untuk sekolah PAUD–SMA/SMK: buku & literasi, asesmen pendidikan, pelatihan & pendampingan, sistem operasional digital, pengadaan sarana penunjang, dan publikasi digital sekolah." },
+        
+        // KATALOG
+        {
+            section: "katalog",
+            content_key: "books_json",
+            content_value: JSON.stringify([
+                {
+                    id: 1,
+                    title: "Matematika SD Kelas I",
+                    author: "Sofie Dewayani",
+                    isbn: "978-602-244-533-3",
+                    link: "https://buku.kemdikbud.go.id/katalog/matematika-untuk-sd-kelas-i",
+                    type: "Buku PDF",
+                    level: "SD/MI",
+                    grade: "I",
+                    tags: "PDF,Matematika,SD",
+                    description: "Buku panduan guru kurikulum merdeka untuk mata pelajaran matematika kelas 1 Sekolah Dasar.",
+                    full_description: "Buku ini dirancang untuk membantu guru dalam menyampaikan materi matematika secara menyenangkan dan mudah dipahami oleh siswa kelas 1 SD. Pembahasan mencakup pengenalan angka, penjumlahan dasar, dan bentuk-bentuk geometri sederhana.",
+                    image: "/uploads/katalog/book1.jpg",
+                },
+                {
+                    id: 2,
+                    title: "Digitalisasi Arsip Sekolah",
+                    author: "Dr. Ahmad Sudrajat",
+                    isbn: "978-602-244-123-7",
+                    link: "",
+                    type: "Buku Interaktif",
+                    level: "SMA/MA/SMK/MAK",
+                    grade: "X",
+                    tags: "Interaktif,Arsip,SMA",
+                    description: "Strategi praktis dalam mendigitalkan dokumen dan arsip sekolah guna meningkatkan aksesibilitas dan keamanan data.",
+                    full_description: "Menghadapi era digital, sekolah dituntut untuk memiliki manajemen pengarsipan yang modern. Dr. Ahmad Sudrajat menguraikan langkah-langkah praktis migrasi arsip fisik ke format digital dengan mempertimbangkan aspek legalitas dan keamanan informasi.",
+                    image: "https://images.unsplash.com/photo-1512820790803-73c7e9ae832d?auto=format&fit=crop&q=80&w=800",
+                },
+                {
+                    id: 3,
+                    title: "Kurikulum Merdeka di Era Digital",
+                    author: "Prof. Maria Ulfa",
+                    isbn: "978-602-244-987-5",
+                    link: "https://google.com",
+                    type: "Buku PDF",
+                    level: "SD/MI",
+                    grade: "I",
+                    tags: "PDF,Kurikulum,SD",
+                    description: "Analisis mendalam mengenai adaptasi kurikulum nasional dengan bantuan teknologi informasi terkini.",
+                    full_description: "Prof. Maria Ulfa membedah bagaimana elemen-elemen teknologi dapat memperkuat implementasi Kurikulum Merdeka. Fokus pada personalisasi pembelajaran dan pemanfaatan platform digital untuk asesmen formatif.",
+                    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=800",
+                },
+                {
+                    id: 4,
+                    title: "Inovasi Pembelajaran STEM",
+                    author: "Ir. Bambang Wijaya",
+                    isbn: "978-602-244-554-9",
+                    link: "",
+                    type: "Buku Audio",
+                    level: "SMP/MTS",
+                    grade: "VIII",
+                    tags: "Audio,STEM,SMP",
+                    description: "Metodologi pengajaran sains, teknologi, teknik, dan matematika menggunakan perangkat pembelajaran interaktif.",
+                    full_description: "Pembelajaran STEM tidak lagi sulit dengan pendekatan yang tepat. Buku ini menawarkan berbagai modul praktikum berbasis teknologi yang dapat diterapkan langsung di laboratorium sekolah dengan biaya yang efisien.",
+                    image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=800",
+                }
+            ])
+        },
     ];
 
     try {

@@ -8,6 +8,7 @@ import Solutions from "./Solutions";
 import Why from "./Why";
 import How from "./How";
 import Jangkauan from "./Jangkauan";
+import Katalog from "./Katalog";
 import Footer from "./Footer";
 
 function Page() {
@@ -27,6 +28,8 @@ function Page() {
         return <How />;
       case "jangkauan":
         return <Jangkauan />;
+      case "katalog":
+        return <Katalog />;
       default:
         return <Home />;
     }

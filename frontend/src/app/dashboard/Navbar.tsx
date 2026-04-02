@@ -57,6 +57,7 @@ const Navbar = ({ activeSection, onSectionChange }: NavbarProps) => {
     { id: "mengapa-kami", label: "Mengapa Kami" },
     { id: "cara-kerja", label: "Cara Kerja" },
     { id: "jangkauan", label: "Jangkauan" },
+    { id: "katalog", label: "Katalog" },
   ];
 
   return (
